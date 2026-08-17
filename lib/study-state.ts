@@ -1,0 +1,32 @@
+export type StudyState = {
+  completed: boolean;
+  response: string;
+  practiceAnswers: string[];
+  practiceCorrect: boolean[];
+  offscreenResponse: string;
+  reviewResponse: string;
+  reviewComplete: boolean;
+  completedAt?: string;
+};
+
+export const initialStudyState: StudyState = {
+  completed: false,
+  response: "",
+  practiceAnswers: ["", "", ""],
+  practiceCorrect: [false, false, false],
+  offscreenResponse: "",
+  reviewResponse: "",
+  reviewComplete: false,
+};
+
+export const storageKey = "studium:arithmetic-one:v1";
+
+export function evidenceSummary(state: StudyState) {
+  const correct = state.practiceCorrect.filter(Boolean).length;
+  return {
+    fluency: correct === 3 ? "Secure in this lesson" : correct > 0 ? "Developing" : "Not yet observed",
+    understanding: state.response.trim().length >= 40 ? "Promising explanation" : state.response ? "Needs conversation" : "Not yet observed",
+    attention: state.offscreenResponse.trim().length >= 15 ? "Completed a real-world observation" : "Not yet observed",
+    next: state.reviewComplete ? "Ready to continue to The Unit We Choose" : state.completed ? "Recall the meaning of unit before continuing" : "Complete One and Many",
+  };
+}

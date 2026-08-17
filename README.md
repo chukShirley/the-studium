@@ -17,5 +17,22 @@ This slice is intentionally narrow. It tests the product's central claim: practi
 - [x] Learner journey and MVP boundary
 - [x] Initial system architecture and domain model
 - [x] Screen map, phased roadmap, and open decisions
-- [ ] Curriculum schema and first lesson prototype
-- [ ] Application scaffold
+- [x] Curriculum schema and first lesson prototype
+- [x] Application scaffold
+
+## Run the vertical slice
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Open `http://localhost:3000`. Prototype learner evidence is kept in local browser storage so the lesson, delayed recollection, and guide report can be exercised without premature account infrastructure.
+
+Useful checks:
+
+```bash
+pnpm typecheck
+pnpm lint
+pnpm build
+```
