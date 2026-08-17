@@ -29,6 +29,15 @@ pnpm dev
 
 Open `http://localhost:3000`. Prototype learner evidence is kept in local browser storage so the lesson, delayed recollection, and guide report can be exercised without premature account infrastructure.
 
+If `pnpm` is not installed globally, Node's bundled Corepack can invoke the pinned version:
+
+```bash
+corepack pnpm install
+corepack pnpm dev
+```
+
+After dependencies are installed, `npm run dev` also starts the application without requiring a global pnpm command.
+
 Useful checks:
 
 ```bash
