@@ -1,6 +1,8 @@
 import type { PresentationRegister } from "@/lib/curriculum";
 
 export type StudyState = {
+  onboarded: boolean;
+  learnerName: string;
   completed: boolean;
   response: string;
   practiceAnswers: string[];
@@ -10,10 +12,17 @@ export type StudyState = {
   reviewComplete: boolean;
   presentationRegister: PresentationRegister;
   registersEncountered: PresentationRegister[];
+  feedback: {
+    clarity: "" | "unclear" | "mixed" | "clear";
+    registerFit: "" | "too-simple" | "fitting" | "too-demanding";
+    reflection: string;
+  };
   completedAt?: string;
 };
 
 export const initialStudyState: StudyState = {
+  onboarded: false,
+  learnerName: "",
   completed: false,
   response: "",
   practiceAnswers: ["", "", ""],
@@ -23,6 +32,7 @@ export const initialStudyState: StudyState = {
   reviewComplete: false,
   presentationRegister: "discursive",
   registersEncountered: ["discursive"],
+  feedback: { clarity: "", registerFit: "", reflection: "" },
 };
 
 export const storageKey = "studium:arithmetic-one:v1";

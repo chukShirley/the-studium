@@ -31,6 +31,8 @@ Open `http://localhost:3000`. Prototype learner evidence is kept in local browse
 
 The first lesson supports three presentation registers—Concrete, Discursive, and Sapiential. They preserve the same governing principles and evidence while varying vocabulary, scaffolding, and conceptual mediation. Learners may change register without losing their place or work.
 
+The deployed prototype includes browser-local onboarding, preferences, a guide report, and a feedback reflection. No learner data is transmitted to a server. See the [pilot protocol](docs/PILOT.md) before testing with learners.
+
 If `pnpm` is not installed globally, Node's bundled Corepack can invoke the pinned version:
 
 ```bash

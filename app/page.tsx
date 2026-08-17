@@ -4,17 +4,22 @@ import Link from "next/link";
 import { Ornament } from "@/components/ornament";
 import { useStudy } from "@/components/study-provider";
 import { courseLessons, lesson } from "@/lib/curriculum";
+import { Onboarding } from "@/components/onboarding";
+import { TodayLabel } from "@/components/today-label";
 
 export default function StudyPage() {
   const { state, ready } = useStudy();
   const destination = state.completed && !state.reviewComplete ? "/review" : "/lesson/one-and-many";
   const action = state.reviewComplete ? "Revisit the lesson" : state.completed ? "Begin recollection" : "Enter the lesson";
 
+  if (!ready) return <main className="loading-study"><span role="status">Opening the Study…</span></main>;
+  if (!state.onboarded) return <Onboarding />;
+
   return (
     <main>
       <section className="hero shell">
-        <p className="kicker">Monday · The feast of St. Hyacinth</p>
-        <h1>Good morning, Anna.</h1>
+        <p className="kicker"><TodayLabel /></p>
+        <h1>Welcome, {state.learnerName}.</h1>
         <p className="hero-copy">Let us begin with attention. One worthy thing, done well, is enough for today.</p>
         <Ornament />
       </section>
@@ -71,7 +76,11 @@ export default function StudyPage() {
           ))}
         </div>
       </section>
-      {!ready && <span className="sr-only" role="status">Restoring your study</span>}
+      <section className="shell prototype-notice" aria-label="Prototype data notice">
+        <span aria-hidden="true">◌</span>
+        <p><strong>This is a private browser prototype.</strong> Your name and lesson work remain only in this browser. They are not sent to an account or shared with The Studium.</p>
+        <Link href="/settings">Preferences & privacy</Link>
+      </section>
     </main>
   );
 }

@@ -2,15 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useStudy } from "@/components/study-provider";
 
 const links = [
   { href: "/", label: "The Study" },
   { href: "/course", label: "Course" },
   { href: "/report", label: "For the guide" },
+  { href: "/feedback", label: "Reflect" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { state, ready } = useStudy();
+  const learnerName = ready && state.learnerName ? state.learnerName : "Learner";
+  const initials = learnerName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "S";
   return (
     <header className="site-header">
       <div className="shell header-inner">
@@ -25,7 +30,9 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="learner-chip"><span>AS</span><span className="learner-name">Anna’s study</span></div>
+        <Link className="learner-chip" href="/settings" aria-label={`Open settings for ${learnerName}`}>
+          <span>{initials}</span><span className="learner-name">{learnerName}’s study</span>
+        </Link>
       </div>
     </header>
   );

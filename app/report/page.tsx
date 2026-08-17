@@ -6,12 +6,12 @@ import { evidenceSummary } from "@/lib/study-state";
 import { lesson, presentationRegisters } from "@/lib/curriculum";
 
 export default function ReportPage() {
-  const { state, reset } = useStudy();
+  const { state } = useStudy();
   const evidence = evidenceSummary(state);
   return (
     <main className="shell report-page">
       <header className="report-header">
-        <div><p className="kicker">For Anna’s guide</p><h1>A record for conversation</h1></div>
+        <div><p className="kicker">For {state.learnerName || "the learner"}’s guide</p><h1>A record for conversation</h1></div>
         <p>This report describes observed work. It does not reduce the learner to a score.</p>
       </header>
       <section className="report-summary paper-card">
@@ -30,9 +30,9 @@ export default function ReportPage() {
       </section>
       <section className="guide-conversation">
         <div><p className="folio">A question for conversation</p><h2>Ask for a new example.</h2></div>
-        <p>Invite Anna to name something that can be counted in two truthful ways—for example, twelve eggs or one dozen. Ask what was treated as the unit each time.</p>
+        <p>Invite {state.learnerName || "the learner"} to name something that can be counted in two truthful ways—for example, twelve eggs or one dozen. Ask what was treated as the unit each time.</p>
       </section>
-      <div className="report-footer"><p><strong>Recommended next act:</strong> {evidence.next}</p><Link className="text-link" href="/admin">See the published lesson record →</Link><button className="plain-button" onClick={reset}>Reset prototype evidence</button></div>
+      <div className="report-footer"><p><strong>Recommended next act:</strong> {evidence.next}</p><Link className="text-link" href="/admin">See the published lesson record →</Link><Link className="plain-button" href="/settings">Preferences & reset</Link></div>
     </main>
   );
 }
