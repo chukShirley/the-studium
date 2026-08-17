@@ -5,14 +5,15 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Ornament } from "@/components/ornament";
 import { useStudy } from "@/components/study-provider";
-import { lesson, type LessonBlock } from "@/lib/curriculum";
+import { getLessonBlocks, lesson, presentationRegisters, type LessonBlock, type PresentationRegister } from "@/lib/curriculum";
 
 export default function LessonPage() {
   const router = useRouter();
-  const { state, update } = useStudy();
+  const { state, update, setRegister } = useStudy();
   const [step, setStep] = useState(0);
-  const block = lesson.blocks[step] as LessonBlock;
-  const isLast = step === lesson.blocks.length - 1;
+  const blocks = getLessonBlocks(state.presentationRegister);
+  const block = blocks[step] as LessonBlock;
+  const isLast = step === blocks.length - 1;
   const canContinue = useMemo(() => {
     if (block.kind === "response") return state.response.trim().length >= 12;
     if (block.kind === "practice") return state.practiceCorrect.every(Boolean);
@@ -30,14 +31,19 @@ export default function LessonPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function changeRegister(register: PresentationRegister) {
+    setRegister(register);
+  }
+
   return (
     <main className="lesson-shell">
-      <div className="lesson-progress" aria-label={`Part ${step + 1} of ${lesson.blocks.length}`}>
-        <i style={{ width: `${((step + 1) / lesson.blocks.length) * 100}%` }} />
+      <div className="lesson-progress" aria-label={`Part ${step + 1} of ${blocks.length}`}>
+        <i style={{ width: `${((step + 1) / blocks.length) * 100}%` }} />
       </div>
       <header className="lesson-heading shell narrow">
         <Link href="/" className="back-link">← Leave quietly</Link>
-        <p className="kicker">{lesson.unit} · Part {step + 1} of {lesson.blocks.length}</p>
+        <p className="kicker">{lesson.unit} · Part {step + 1} of {blocks.length}</p>
+        <RegisterSelector selected={state.presentationRegister} onChange={changeRegister} />
       </header>
 
       <article className={`lesson-content shell narrow block-${block.kind}`}>
@@ -71,6 +77,30 @@ export default function LessonPage() {
         {!canContinue && <p className="gentle-prompt">Give this act its due before continuing.</p>}
       </article>
     </main>
+  );
+}
+
+function RegisterSelector({ selected, onChange }: { selected: PresentationRegister; onChange: (register: PresentationRegister) => void }) {
+  return (
+    <div className="register-control">
+      <div className="register-heading">
+        <span>Presentation</span>
+        <p>{presentationRegisters[selected].description}</p>
+      </div>
+      <div className="register-options" role="group" aria-label="Choose how this lesson is presented">
+        {(Object.keys(presentationRegisters) as PresentationRegister[]).map((register) => (
+          <button
+            key={register}
+            type="button"
+            aria-pressed={selected === register}
+            onClick={() => onChange(register)}
+            title={presentationRegisters[register].label}
+          >
+            {presentationRegisters[register].shortLabel}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 

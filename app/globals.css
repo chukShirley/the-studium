@@ -102,6 +102,14 @@ blockquote cite { display: block; font: 700 9px var(--font-text); text-transform
 .lesson-heading { padding-top: 46px; }
 .back-link { color: var(--muted); font-size: 13px; }
 .lesson-heading .kicker { text-align: center; margin-top: -13px; }
+.register-control { margin: 34px auto 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 16px 0; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+.register-heading span { color: var(--gold); text-transform: uppercase; letter-spacing: .14em; font-size: 9px; font-weight: 700; }
+.register-heading p { color: var(--muted); font: italic 14px/1.4 var(--font-display); margin: 4px 0 0; max-width: 420px; }
+.register-options { display: flex; border: 1px solid var(--rule); }
+.register-options button { border: 0; border-right: 1px solid var(--rule); background: rgba(255,255,255,.28); color: var(--muted); padding: 9px 11px; cursor: pointer; font-size: 10px; letter-spacing: .04em; }
+.register-options button:last-child { border-right: 0; }
+.register-options button[aria-pressed="true"] { background: var(--forest); color: #fff; }
+.register-options button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; z-index: 1; }
 .lesson-content { padding: 56px 0 100px; text-align: center; }
 .lesson-eyebrow { text-transform: uppercase; letter-spacing: .2em; color: var(--gold); font-weight: 700; font-size: 11px; }
 .lesson-content h1 { font-size: clamp(45px, 7vw, 68px); max-width: 700px; margin-inline: auto; }
@@ -166,6 +174,9 @@ textarea:focus, .practice-list input:focus { border-color: var(--gold); box-shad
 .evidence-grid article { min-height: 220px; padding: 32px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .evidence-grid h3 { font: 500 25px var(--font-display); margin: 13px 0; }
 .evidence-grid article > p:last-child { color: var(--muted); line-height: 1.55; white-space: pre-wrap; }
+.register-evidence { border: 1px solid var(--rule); border-top: 0; padding: 25px 32px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
+.register-evidence h2 { font: 500 23px var(--font-display); margin: 7px 0 0; }
+.register-evidence > p { color: var(--muted); font-size: 13px; line-height: 1.5; }
 .guide-conversation { background: var(--forest); color: #f8f1e2; padding: 37px; margin-top: 30px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; }
 .guide-conversation h2 { font: 500 29px var(--font-display); margin: 6px 0; }
 .guide-conversation > p { color: #cad0c8; font: 400 18px/1.55 var(--font-display); }
@@ -212,12 +223,16 @@ textarea:focus, .practice-list input:focus { border-color: var(--gold); box-shad
   .path-item { padding: 0 0 0 30px; }
   .path-item::before { left: 5px; top: 8px; }
   .lesson-heading .kicker { text-align: right; }
+  .register-control { grid-template-columns: 1fr; gap: 12px; }
+  .register-options { width: 100%; }
+  .register-options button { flex: 1; padding-inline: 5px; }
   .lesson-content { padding-top: 35px; }
   .practice-list label { grid-template-columns: 25px 1fr 60px; gap: 8px; }
   .practice-list i { display: none; }
   .lesson-actions { position: sticky; bottom: 72px; background: rgba(244,240,230,.92); padding: 12px 0; backdrop-filter: blur(10px); }
   .evidence-grid { grid-template-columns: 1fr; }
   .guide-conversation { grid-template-columns: 1fr; gap: 10px; }
+  .register-evidence { grid-template-columns: 1fr; gap: 6px; }
   .report-summary { align-items: start; gap: 20px; }
   .status-seal { white-space: nowrap; }
   .block-ledger code { display: none; }

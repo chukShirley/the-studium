@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useStudy } from "@/components/study-provider";
 import { evidenceSummary } from "@/lib/study-state";
+import { lesson, presentationRegisters } from "@/lib/curriculum";
 
 export default function ReportPage() {
   const { state, reset } = useStudy();
@@ -14,8 +15,12 @@ export default function ReportPage() {
         <p>This report describes observed work. It does not reduce the learner to a score.</p>
       </header>
       <section className="report-summary paper-card">
-        <div><span>Current study</span><h2>One and Many</h2><p>Arithmetic I · Lesson version 1</p></div>
+        <div><span>Current study</span><h2>One and Many</h2><p>Arithmetic I · Lesson version {lesson.version} · {presentationRegisters[state.presentationRegister].shortLabel} presentation</p></div>
         <div className={`status-seal ${state.completed ? "done" : ""}`}>{state.completed ? "Encountered" : "Awaiting study"}</div>
+      </section>
+      <section className="register-evidence">
+        <div><p className="folio">Presentation encountered</p><h2>{state.registersEncountered.map((register) => presentationRegisters[register].shortLabel).join(" · ")}</h2></div>
+        <p>The register records how the lesson was mediated, not the learner’s ability or rank. Evidence of understanding is judged separately.</p>
       </section>
       <section className="evidence-grid">
         <article><p className="folio">Procedural fluency</p><h3>{evidence.fluency}</h3><p>{state.practiceCorrect.filter(Boolean).length} of 3 deliberate counting exercises answered accurately.</p></article>

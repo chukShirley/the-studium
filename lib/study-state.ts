@@ -1,3 +1,5 @@
+import type { PresentationRegister } from "@/lib/curriculum";
+
 export type StudyState = {
   completed: boolean;
   response: string;
@@ -6,6 +8,8 @@ export type StudyState = {
   offscreenResponse: string;
   reviewResponse: string;
   reviewComplete: boolean;
+  presentationRegister: PresentationRegister;
+  registersEncountered: PresentationRegister[];
   completedAt?: string;
 };
 
@@ -17,6 +21,8 @@ export const initialStudyState: StudyState = {
   offscreenResponse: "",
   reviewResponse: "",
   reviewComplete: false,
+  presentationRegister: "discursive",
+  registersEncountered: ["discursive"],
 };
 
 export const storageKey = "studium:arithmetic-one:v1";

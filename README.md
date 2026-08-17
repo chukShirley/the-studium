@@ -29,6 +29,8 @@ pnpm dev
 
 Open `http://localhost:3000`. Prototype learner evidence is kept in local browser storage so the lesson, delayed recollection, and guide report can be exercised without premature account infrastructure.
 
+The first lesson supports three presentation registers—Concrete, Discursive, and Sapiential. They preserve the same governing principles and evidence while varying vocabulary, scaffolding, and conceptual mediation. Learners may change register without losing their place or work.
+
 If `pnpm` is not installed globally, Node's bundled Corepack can invoke the pinned version:
 
 ```bash

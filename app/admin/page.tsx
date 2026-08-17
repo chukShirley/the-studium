@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { lesson } from "@/lib/curriculum";
+import { lesson, presentationRegisters } from "@/lib/curriculum";
 
 export default function AdminPage() {
   return (
@@ -8,7 +8,7 @@ export default function AdminPage() {
       <div className="admin-grid">
         <section className="paper-card">
           <p className="folio">Immutable publication</p><h2>{lesson.title}</h2><p>{lesson.course}</p>
-          <dl className="metadata"><dt>Stable ID</dt><dd>{lesson.id}</dd><dt>Version</dt><dd>{lesson.version}</dd><dt>Blocks</dt><dd>{lesson.blocks.length}</dd><dt>Status</dt><dd>Published</dd></dl>
+          <dl className="metadata"><dt>Stable ID</dt><dd>{lesson.id}</dd><dt>Version</dt><dd>{lesson.version}</dd><dt>Blocks</dt><dd>{lesson.blocks.length}</dd><dt>Registers</dt><dd>{Object.keys(presentationRegisters).length}</dd><dt>Status</dt><dd>Published</dd></dl>
           <Link className="button primary" href="/lesson/one-and-many">Preview learner view</Link>
         </section>
         <section className="block-ledger">

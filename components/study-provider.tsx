@@ -2,11 +2,13 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { initialStudyState, storageKey, type StudyState } from "@/lib/study-state";
+import type { PresentationRegister } from "@/lib/curriculum";
 
 type StudyContextValue = {
   state: StudyState;
   ready: boolean;
   update: (patch: Partial<StudyState>) => void;
+  setRegister: (register: PresentationRegister) => void;
   reset: () => void;
 };
 
@@ -39,6 +41,13 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
       state,
       ready,
       update: (patch: Partial<StudyState>) => setState((current) => ({ ...current, ...patch })),
+      setRegister: (register: PresentationRegister) => setState((current) => ({
+        ...current,
+        presentationRegister: register,
+        registersEncountered: current.registersEncountered.includes(register)
+          ? current.registersEncountered
+          : [...current.registersEncountered, register],
+      })),
       reset: () => setState(initialStudyState),
     }),
     [ready, state],
